@@ -124,9 +124,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="DungeonManager.cpp" />
+    <ClCompile Include="Instructor.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Innkeeper.cpp" />
+    <ClCompile Include="Slime.cpp" />
     <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -137,21 +142,29 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="ActorInfo.h" />
     <ClInclude Include="Berserker.h" />
+    <ClInclude Include="DungeonManager.h" />
+    <ClInclude Include="Instructor.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Gnoll.h" />
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="Golem.h" />
     <ClInclude Include="Job.h" />
+    <ClInclude Include="JobData.h" />
     <ClInclude Include="Knight.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterData.h" />
     <ClInclude Include="Novice.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="Orc.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Innkeeper.h" />
     <ClInclude Include="Slime.h" />
+    <ClInclude Include="Status.h" />
     <ClInclude Include="UIManager.h" />
-    <ClInclude Include="Util.h" />
+    <ClInclude Include="Utilities.h" />
     <ClInclude Include="Warrior.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

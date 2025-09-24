@@ -4,41 +4,31 @@
 
 #include "Actor.h"
 #include "Job.h"
+#include "Status.h"
+#include "ActorInfo.h"
 
 class Player : public Actor
 {
 public:
-	virtual void Attack();
-	virtual void Suffer();
-
-	void Info();
+	ActorInfo Info();
 	void AddExp(int InExp);
 	void LevelUp();
+	Job* ClassUp();
 
-	Player();
-	Player(std::string InName, Job* InJob)
-		:Name(InName), Actor()
+	Player() = default;
+	Player(std::string InName, Status InStat, Job* InJob)
+		:Actor(InName, InStat), CurrentJob(InJob)
 	{
+		IsPlayer = true;
 		LevelUp();
 	}
-	virtual ~Player();
+	virtual ~Player() {}
 	
 
 private:
-	std::string Name;
 	int Level = 0;
-	Job* Class;
-
-	int BaseHp = 50;
-	int BaseMp = 0;
-	int BaseExp = 0;
-		
-	int BaseAtk = 10;
-	int BaseDef = 5;
-	int BaseSpd = 5;
-		
-	int BaseCounter = 10;
-	int BaseDodge = 20;
-	int BaseCrit = 10;
+	int CurrentExp = 0;
+	Job* CurrentJob;
+	Status* TempStat = nullptr;
 };
 

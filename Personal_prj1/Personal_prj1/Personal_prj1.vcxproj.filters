@@ -25,22 +25,43 @@
     <Filter Include="Util">
       <UniqueIdentifier>{a036f7a4-7929-46cf-a381-8d8a74de5c2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NPC">
+      <UniqueIdentifier>{44a06e7d-1f0b-47f8-b8df-fae7e3b2f189}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{f30d3b99-8927-4265-a6f3-423d79d9db26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructor.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Innkeeper.cpp">
+      <Filter>NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonManager.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -54,9 +75,6 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Actor.h">
       <Filter>Player</Filter>
     </ClInclude>
@@ -96,14 +114,41 @@
     <ClInclude Include="Golem.h">
       <Filter>Monster</Filter>
     </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Constants.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Util.h">
+    <ClInclude Include="Utilities.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Status.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorInfo.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="JobData.h">
+      <Filter>Job</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterData.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Innkeeper.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Instructor.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonManager.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

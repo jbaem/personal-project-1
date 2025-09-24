@@ -1,24 +1,22 @@
 #pragma once
 
+#include <string>
+
+#include "Status.h"
 class Actor
 {
+
 public:
+	std::string Name = "Unknown";
+	Status Stat;
+	bool IsPlayer = false;
+
 	virtual void Attack(Actor* Target);
-	virtual void Suffer(int InDamage);
+	virtual void Suffer(int InDamage, Actor* Target);
 
-	Actor() = default;
+	void SetHp(int InHp);
+	int GetCurrentHp() const { return Stat.CurrentHp; }
+
+	Actor(std::string InName, Status InStat);
 	virtual ~Actor() {};
-protected:
-	int MaxHp = 50;
-	int Hp = 50;
-	int Mp = 0;
-	int Exp = 0;
-
-	int Atk = 10;
-	int Def = 5;
-	int Spd = 5;
-
-	int Counter = 10;
-	int Dodge = 20;
-	int Crit = 10;
 };
