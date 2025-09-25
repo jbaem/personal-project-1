@@ -10,9 +10,9 @@ class Slime : public Monster
 public:
 	Slime()
 		:Monster(std::string("Slime"),
-			MonsterStatus[MonsterType::Slime])
+			MonsterStatus[MonsterType::Slime],
+			100)
 	{
-		DropGold = 100;
 	}
 
 private:

@@ -124,15 +124,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="Berserker.cpp" />
     <ClCompile Include="DungeonManager.cpp" />
     <ClCompile Include="Instructor.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="Novice.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Innkeeper.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="Warrior.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\README.md" />

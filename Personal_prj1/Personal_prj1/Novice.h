@@ -1,24 +1,22 @@
 #pragma once
 
 #include "Job.h"
+#include <vector>
+
+#include "JobData.h"
+#include "Monster.h"
+#include "Player.h"
+#include <string>
 #include "Status.h"
 
 class Novice : public Job
 {
 public:
-	Novice()
-		:Job (
-			JobType::Novice,
-			"Novice",
-			Status(
-				50, 0, 0,
-				3, 1, 1,
-				0, 0, 0, 0
-			)
-		)
-	{}
+	bool Strike(Player* InPlayer, Monster* Target);
+	
+	Novice(JobType InType);
 	virtual ~Novice() {}
 
 private:
-	virtual void Strike(int& PlayerMp);
+	std::vector<JobType> NextJobs;
 };

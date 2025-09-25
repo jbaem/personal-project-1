@@ -9,19 +9,28 @@ using Turn = std::pair<float, Actor*>;
 class DungeonManager
 {
 public:
-	int DungeonChoice();
+	void DungeonChoice();
 
 	DungeonManager() = default;
+	DungeonManager(Actor* InPlayer)
+		:User(static_cast<Player*>(InPlayer)) { }
 	~DungeonManager() = default;
 
-private:
-	int CurrentDungeon = 0;
 	void GoToDungeon();
 	int DungeonInput();
-	bool CompareTurn(Turn o1, Turn o2);
 	void Battle();
 	Monster* MonsterGenerator();
 
+	int CurrentDungeon = 0;
+
 private:
 	Player* User = nullptr;
+};
+
+struct Comparator
+{
+	bool operator()(Turn p1, Turn p2)
+	{
+		return p1.first > p2.first;
+	}
 };

@@ -1,21 +1,23 @@
 #include "GameManager.h"
+
 #include <string>
 #include <cstdio>
 #include <iostream>
 
-#include "Novice.h"
-#include "Status.h"
+#include "JobData.h"
+
 #include "Player.h"
 #include "Job.h"
+#include "Novice.h"
+#include "Status.h"
+#include "ActorInfo.h"
+#include "DungeonManager.h"
 
 void GameManager::PlayGame()
 {
 	int InputNumber = 0;
 	int ChoiceNumber = 0;
-
-	// 플레이어 생성
-	//InitPlayer();
-
+	
 	const int EndGame = 2;
 	while (StartChoice() != EndGame)
 	{		
@@ -28,10 +30,10 @@ void GameManager::PlayGame()
 				Dungeon->DungeonChoice();
 				break;
 			case 2:
-				JobNPC.Talk();
+				JobNPC.Talk(static_cast<Player*>(User));
 				break;
 			case 3:
-				InnNPC.Talk();
+				InnNPC.Talk(static_cast<Player*>(User));
 				break;
 			default:
 				break;
@@ -45,8 +47,12 @@ int GameManager::StartChoice()
 	int InputNumber = 0;
 	while (true)
 	{
+		printf("--------------------------------------------------------------------\n");
+		printf("\n\t\t\t<전직 RPG>\n\n");
+		printf("게임을 시작하시겠습니까?\n");
 		printf("1. 게임 시작\n");
 		printf("2. 게임 종료\n");
+		printf("\n>>> ");
 		std::cin >> InputNumber;
 		switch (InputNumber)
 		{
@@ -68,9 +74,15 @@ int GameManager::VillageChoice()
 	int InputNumber = 0;
 	while (true)
 	{
-		printf("1. 던전\n");
-		printf("2. 전직\n");
-		printf("3. 회복\n");
+		User->PrintPlayerInfo();
+		printf("--------------------------------------------------------------------\n");
+		printf("\n\t\t\t<태초 마을>\n\n");
+		printf("오늘은 무슨 일을 할까?\n");
+		printf("1. 던전으로 향하기\n");
+		printf("2. 교관에게 전직하러 가기\n");
+		printf("3. 여관에 쉬러 가기\n");
+		printf("\n>>> ");
+
 		std::cin >> InputNumber;
 		switch (InputNumber)
 		{
@@ -86,18 +98,30 @@ int GameManager::VillageChoice()
 
 void GameManager::InitPlayer()
 {
+	printf("\t\t\t<플레이어 설정중>\n");
+	printf("당신의 영어 이름은?\n");
+	printf(">>> ");
 	std::string InputName;
-	printf("Input user name : ");
 	std::cin >> InputName;
 
-	Job* FirstJob = new Novice();
+	Job* FirstJob = new Novice(JobType::Novice);
 	User = new Player(
 		InputName,
-		Status(
-			50, 0, 0,
-			10, 10, 20,
-			5, 10, 10, 20
-		),
+		JobStatus[JobType::None],
 		FirstJob
 	);
+	User->PrintPlayerInfo();
+	printf("\n\t\t\t\t<설정 완료>\n\n\n");
+}
+
+GameManager::GameManager()
+{
+	InitPlayer();
+	Dungeon = new DungeonManager(User);
+}
+
+GameManager::~GameManager()
+{
+	delete Dungeon;
+	delete User;
 }

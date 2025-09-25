@@ -10,9 +10,9 @@ class Orc : public Monster
 public:
 	Orc()
 		:Monster(std::string("Orc"),
-			MonsterStatus[MonsterType::Orc])
+			MonsterStatus[MonsterType::Orc],
+			400)
 	{
-		DropGold = 400;
 	}
 	virtual ~Orc() {}
 

@@ -15,27 +15,27 @@ enum class MonsterType
 
 static std::map<MonsterType, Status> MonsterStatus = {
 	{MonsterType::Slime, Status(
-		20, 0, 10,
+		20, 0, 30,
 		5, 6, 20,
 		0, 0, 0, 0
 	)},
 	{MonsterType::Goblin, Status(
-		100, 0, 40,
+		100, 0, 60,
 		10, 12, 28,
 		0, 10, 10, 20
 	)},
 	{MonsterType::Gnoll, Status(
-		180, 0, 90,
+		180, 0, 270,
 		15, 20, 32,
 		10, 10, 20, 20
 	)}, 
 	{MonsterType::Orc, Status(
-		300, 0, 160,
+		300, 0, 480,
 		20, 30, 28,
 		15, 10, 20, 20
 	)},
 	{MonsterType::Golem, Status(
-		500, 0, 300,
+		500, 0, 900,
 		25, 40, 32,
 		20, 10, 20, 20
 	)}

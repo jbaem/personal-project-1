@@ -1,8 +1,9 @@
 #include "DungeonManager.h"
+
 #include <cstdio>
 #include <iostream>
-#include <algorithm>
 #include <queue>
+#include <vector>
 
 #include "Monster.h"
 #include "Slime.h"
@@ -12,19 +13,25 @@
 #include "Golem.h"
 #include "Actor.h"
 #include <utility>
-#include <vector>
-#include <functional>
+#include "Utilities.h"
+#include "ActorInfo.h"
+#include "Status.h"
 
-int DungeonManager::DungeonChoice()
+void DungeonManager::DungeonChoice()
 {
     int InputNumber = 0;
     while (true)
     {
-        printf("1.  슬라임 던전\n");
-        printf("2.  고블린 던전\n");
-        printf("3.    놀   던전\n");
-        printf("4.   오크  던전\n");
-        printf("5.   골렘  던전\n");
+        printf("--------------------------------------------------------------------\n");
+        printf("\n\t\t\t<던전 선택>\n\n");
+        printf("어떤 던전으로 가야하지? 너무 어려운 던전은 공략하기 힘들어!\n");
+        printf("1.  슬라임 던전 (Lv. 1)\n");
+        printf("2.  고블린 던전 (Lv. 5)\n");
+        printf("3.    놀   던전 (Lv.10)\n");
+        printf("4.   오크  던전 (Lv.15)\n");
+        printf("5.   골렘  던전 (Lv.20)\n");
+        printf("\n>>> ");
+
         std::cin >> InputNumber;
         switch (InputNumber)
         {
@@ -40,17 +47,25 @@ int DungeonManager::DungeonChoice()
             break;
         }
     }
-
-    return 0;
 }
 
 void DungeonManager::GoToDungeon()
 {
+    const int MonsterSpawnRate = 80;
     const int VillageNumber = 2;
     int InputNumber = 0;
-    while (DungeonInput() != VillageNumber)
+    while (DungeonInput() != VillageNumber && User->GetCurrentHp() > 0)
     {
-        Battle();
+        int CurrentEvent = GenerateRandomNumber(0, 99);
+        if (CurrentEvent < MonsterSpawnRate)
+        {
+            printf("몬스터를 만났다!\n");
+            Battle();
+        }
+        else
+        {
+            printf("몬스터를 만나지 못했다!.\n");
+        }
     }
 }
 
@@ -60,8 +75,14 @@ int DungeonManager::DungeonInput()
     int InputNumber = 0;
     while (InputNumber != VillageNumber)
     {
-        printf("1. 탐험\n");
+        User->PrintPlayerInfo();
+        printf("--------------------------------------------------------------------\n");
+        printf("\n\t\t\t<던전>\n\n");
+        printf("어떻게 할래?\n");
+        printf("1. 앞으로 나아가기 (몬스터를 만난다.)\n");
         printf("2. 마을로\n");
+
+        printf("\n>>> ");
         std::cin >> InputNumber;
         switch (InputNumber)
         {
@@ -72,41 +93,74 @@ int DungeonManager::DungeonInput()
             break;
         }
     }
+    return 0;
 }
 
 void DungeonManager::Battle()
 {
-    Monster* Monster = MonsterGenerator();
-    if (!Monster)
+    Monster* CurrentMonster = MonsterGenerator();
+    if (!CurrentMonster)
     {
         printf("적이 없습니다.\n");
         return;
     }
 
-    std::priority_queue<Turn, std::vector<Turn>, std::greater<Turn>> PQ;
-    PQ.push({ 200.0f / User->Stat.Spd, User });
-    PQ.push({ 200.0f / Monster->Stat.Spd, Monster });
+    //std::priority_queue<Turn, std::vector<Turn>, std::greater<Turn>> PQ;
+    std::priority_queue<Turn, std::vector<Turn>, Comparator> PQ;
+    PQ.push(std::make_pair( 200.0f / User->Stat.Spd, User ));
+    PQ.push(std::make_pair( 200.0f / CurrentMonster->Stat.Spd, CurrentMonster ));
 
-    while (Monster->GetCurrentHp() > 0 && User->GetCurrentHp() > 0)
+    int TurnCount = 1;
+    while (CurrentMonster->GetCurrentHp() > 0 && User->GetCurrentHp() > 0)
     {
+        User->PrintPlayerInfo();
+        CurrentMonster->PrintMonsterInfo();
+        printf("\n\t\t\t<%d 번째 턴>\n\n", TurnCount);
+
         float CurrentTime = PQ.top().first;
         Actor* CurrentActor = PQ.top().second;
         PQ.pop();
 
+        int BattleChoice = 0;
         if (CurrentActor->IsPlayer)
         {
-            //TODO: User Choice Skill
-            CurrentActor->Attack(Monster);
+            BattleChoice = CurrentActor->MyTurn(CurrentMonster);
         }
         else
         {
-            //TODO: Monster Choice Skill
-            CurrentActor->Attack(User);
+            BattleChoice = CurrentActor->MyTurn(User);
         }
+        printf("\n");
+
+        if (BattleChoice == 3)
+        {
+            printf("[%s] 도망쳤습니다.\n", CurrentActor->Name.c_str());
+            break;
+        }
+
         float NextTime = CurrentTime + 200.0f / CurrentActor->Stat.Spd;
         PQ.push({ NextTime, CurrentActor });
+        
+        TurnCount++;
     }
     PQ = {};
+
+    if (User->GetCurrentHp() <= 0)
+    {
+        User->Die(CurrentMonster);
+    }
+
+    if (CurrentMonster->GetCurrentHp() <= 0)
+    {
+        CurrentMonster->Die(User);
+        
+        User->AddExp(CurrentMonster->Stat.Exp);
+        User->EarnGold(CurrentMonster->Gold);
+    }
+
+    delete CurrentMonster;
+    CurrentMonster = nullptr;
+    return;
 }
 
 Monster* DungeonManager::MonsterGenerator()

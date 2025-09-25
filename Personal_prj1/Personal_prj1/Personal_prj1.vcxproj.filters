@@ -31,37 +31,100 @@
     <Filter Include="Manager">
       <UniqueIdentifier>{f30d3b99-8927-4265-a6f3-423d79d9db26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Monster\header">
+      <UniqueIdentifier>{db5f7242-5bbb-4c59-acdb-d380578c9215}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\header">
+      <UniqueIdentifier>{71c2462a-7c78-4466-9379-163c42f49333}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Job\header">
+      <UniqueIdentifier>{100715f4-7d61-4714-8cc2-229dbfae2ebb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Job\data">
+      <UniqueIdentifier>{449e6ea0-b97b-4dfc-b6c1-4a27afe2b459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\data">
+      <UniqueIdentifier>{38d7526f-88ae-452d-8ca4-4732ce900145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NPC\header">
+      <UniqueIdentifier>{47d38c1d-22c1-4597-8aa2-6040d6aaeb78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NPC\data">
+      <UniqueIdentifier>{6a41db00-bc99-4629-bcaf-571f30975bbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\header">
+      <UniqueIdentifier>{d5c8dd92-7baf-4345-9b0b-ce0049807edb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\data">
+      <UniqueIdentifier>{73526a18-01fc-4a43-bb9f-26d44e3441ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util\header">
+      <UniqueIdentifier>{9f7c99ff-78c1-4af8-8ca3-e4f3e1b86381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\scripts">
+      <UniqueIdentifier>{6f0e26c6-4b21-4250-8388-d2af6f78531a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Job\scripts">
+      <UniqueIdentifier>{2bde14e1-e01a-494a-aff8-33ed996c5833}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster\scripts">
+      <UniqueIdentifier>{edbea469-9283-49b3-a68d-2195fe8ce4ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NPC\scripts">
+      <UniqueIdentifier>{dfdd0adc-3313-4380-972e-6ebe1e7f640a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\scripts">
+      <UniqueIdentifier>{d657b3bf-0e4f-4769-a449-5ec4c689a132}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util\scripts">
+      <UniqueIdentifier>{c56ad19d-0075-428d-bb45-a55fe57d31e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Slime.cpp">
-      <Filter>Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="Instructor.cpp">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="Innkeeper.cpp">
-      <Filter>NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>Manager</Filter>
+    <ClCompile Include="DungeonManager.cpp">
+      <Filter>Manager\scripts</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
-      <Filter>Manager</Filter>
+      <Filter>Manager\scripts</Filter>
     </ClCompile>
-    <ClCompile Include="DungeonManager.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>Manager\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Novice.cpp">
+      <Filter>Job\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Monster\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Monster\data</Filter>
+    </ClCompile>
+    <ClCompile Include="Innkeeper.cpp">
+      <Filter>NPC\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Instructor.cpp">
+      <Filter>NPC\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Player\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Player\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>Util\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Warrior.cpp">
+      <Filter>Job\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Berserker.cpp">
+      <Filter>Job\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight.cpp">
+      <Filter>Job\scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,80 +138,80 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Job.h">
-      <Filter>Job</Filter>
-    </ClInclude>
-    <ClInclude Include="Novice.h">
-      <Filter>Job</Filter>
-    </ClInclude>
-    <ClInclude Include="Warrior.h">
-      <Filter>Job</Filter>
-    </ClInclude>
-    <ClInclude Include="Knight.h">
-      <Filter>Job</Filter>
-    </ClInclude>
-    <ClInclude Include="Berserker.h">
-      <Filter>Job</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Slime.h">
-      <Filter>Monster</Filter>
+    <ClInclude Include="Gnoll.h">
+      <Filter>Monster\header</Filter>
     </ClInclude>
     <ClInclude Include="Goblin.h">
-      <Filter>Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Gnoll.h">
-      <Filter>Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Orc.h">
-      <Filter>Monster</Filter>
+      <Filter>Monster\header</Filter>
     </ClInclude>
     <ClInclude Include="Golem.h">
-      <Filter>Monster</Filter>
+      <Filter>Monster\header</Filter>
     </ClInclude>
-    <ClInclude Include="Constants.h">
-      <Filter>Util</Filter>
+    <ClInclude Include="Orc.h">
+      <Filter>Monster\header</Filter>
     </ClInclude>
-    <ClInclude Include="Utilities.h">
-      <Filter>Util</Filter>
-    </ClInclude>
-    <ClInclude Include="Status.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="ActorInfo.h">
-      <Filter>Player</Filter>
-    </ClInclude>
-    <ClInclude Include="JobData.h">
-      <Filter>Job</Filter>
-    </ClInclude>
-    <ClInclude Include="MonsterData.h">
-      <Filter>Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Innkeeper.h">
-      <Filter>NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="Instructor.h">
-      <Filter>NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="NPC.h">
-      <Filter>NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>Manager</Filter>
+    <ClInclude Include="Slime.h">
+      <Filter>Monster\header</Filter>
     </ClInclude>
     <ClInclude Include="DungeonManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Manager\header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Manager\header</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>Manager\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Berserker.h">
+      <Filter>Job\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
+      <Filter>Job\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Novice.h">
+      <Filter>Job\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Warrior.h">
+      <Filter>Job\header</Filter>
+    </ClInclude>
+    <ClInclude Include="JobData.h">
+      <Filter>Job\data</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterData.h">
+      <Filter>Monster\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Monster\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Job.h">
+      <Filter>Job\data</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>NPC\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Innkeeper.h">
+      <Filter>NPC\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Instructor.h">
+      <Filter>NPC\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Status.h">
+      <Filter>Player\data</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorInfo.h">
+      <Filter>Player\data</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Player\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Util\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>Util\header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

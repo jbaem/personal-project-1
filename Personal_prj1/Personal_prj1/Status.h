@@ -1,9 +1,12 @@
+#pragma once
 
 struct Status
 {
 	int CurrentHp = 50;
 	int Hp = 50;
-	int Mp = 0;
+	int CurrentMp = 0;
+	int Mp = 7;
+
 	int Exp = 0;
 
 	int Atk = 10;
@@ -16,10 +19,11 @@ struct Status
 	int CritDmg = 20;
 
 	Status() = default;
-	Status(int InHp, int InMp, int InExp,
+	Status(
+		int InHp, int InMp, int InExp,
 		int InAtk, int InDef, int InSpd,
 		int InCounter, int InDodge, int InCrit, int InCrtiDmg)
-		: CurrentHp(InHp), Hp(InHp), Mp(InMp), Exp(InExp),
+		: CurrentHp(InHp), Hp(InHp), CurrentMp(InMp), Mp(7), Exp(InExp),
 		Atk(InAtk), Def(InDef), Spd(InSpd),
 		Counter(InCounter), Dodge(InDodge), Crit(InCrit), CritDmg(InCrtiDmg) {}
 };

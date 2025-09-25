@@ -10,9 +10,9 @@ class Golem : public Monster
 public:
 	Golem()
 		:Monster(std::string("Golem"),
-			MonsterStatus[MonsterType::Golem])
+			MonsterStatus[MonsterType::Golem],
+			500)
 	{
-		DropGold = 500;
 	}
 	virtual ~Golem() {}
 

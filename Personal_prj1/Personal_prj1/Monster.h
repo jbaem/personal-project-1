@@ -1,16 +1,24 @@
 #pragma once
 
+#include <string>
+
 #include "Actor.h"
 #include "Status.h"
-#include <string>
+#include "ActorInfo.h"
 
 class Monster : public Actor
 {
 public:
-	int DropGold = 0;
+	ActorInfo Info();
+	virtual int MyTurn(Actor* Target);
+
+	void PrintMonsterInfo();
+	virtual void Die(Actor* Attacker);
+
+	int SkillMana = 100; //TODO: CHange
 
 	Monster() = default;
-	Monster(std::string InName, Status InStat)
-		: Actor(InName, InStat) {}
+	Monster(std::string InName, Status& InStat, int InGold)
+		: Actor(InName, InStat, InGold) {}
 	virtual ~Monster() {}
 };
