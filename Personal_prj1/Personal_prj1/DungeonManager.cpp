@@ -114,8 +114,9 @@ void DungeonManager::Battle()
 
     //std::priority_queue<Turn, std::vector<Turn>, std::greater<Turn>> PQ;
     std::priority_queue<Turn, std::vector<Turn>, Comparator> PQ;
-    PQ.push(std::make_pair( 200.0f / User->Stat.Spd, User ));
-    PQ.push(std::make_pair( 200.0f / CurrentMonster->Stat.Spd, CurrentMonster ));
+    const float StandardTime = User->Stat.Spd * CurrentMonster->Stat.Spd;
+    PQ.push(std::make_pair(StandardTime / User->Stat.Spd, User ));
+    PQ.push(std::make_pair(StandardTime / CurrentMonster->Stat.Spd, CurrentMonster ));
 
     int TurnCount = 1;
     while (CurrentMonster->GetCurrentHp() > 0 && User->GetCurrentHp() > 0)
@@ -153,7 +154,7 @@ void DungeonManager::Battle()
             break;
         }
 
-        float NextTime = CurrentTime + 200.0f / CurrentActor->Stat.Spd;
+        float NextTime = CurrentTime + StandardTime / CurrentActor->Stat.Spd;
         PQ.push({ NextTime, CurrentActor });
         
         TurnCount++;

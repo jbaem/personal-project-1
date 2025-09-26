@@ -90,9 +90,6 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Manager\scripts</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>Manager\scripts</Filter>
-    </ClCompile>
     <ClCompile Include="Novice.cpp">
       <Filter>Job\scripts</Filter>
     </ClCompile>
@@ -126,6 +123,18 @@
     <ClCompile Include="Knight.cpp">
       <Filter>Job\scripts</Filter>
     </ClCompile>
+    <ClCompile Include="Goblin.cpp">
+      <Filter>Monster\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Gnoll.cpp">
+      <Filter>Monster\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Golem.cpp">
+      <Filter>Monster\scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="Orc.cpp">
+      <Filter>Monster\scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\README.md">
@@ -157,9 +166,6 @@
       <Filter>Manager\header</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
-      <Filter>Manager\header</Filter>
-    </ClInclude>
-    <ClInclude Include="UIManager.h">
       <Filter>Manager\header</Filter>
     </ClInclude>
     <ClInclude Include="Berserker.h">

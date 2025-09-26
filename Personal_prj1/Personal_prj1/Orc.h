@@ -15,6 +15,7 @@ public:
 	{
 	}
 	virtual ~Orc() {}
+	bool UseSkill(Actor* Attacker, Actor* Target);
 
 private:
 

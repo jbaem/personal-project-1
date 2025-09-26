@@ -1,11 +1,10 @@
 #include "Monster.h"
 
-#include <cstdlib>
+#include <cstdio>
 
 #include "Status.h"
 #include "Actor.h"
 #include "ActorInfo.h"
-#include <cstdio>
 
 //float RandomFactor = 0.9f + ((static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 0.2f);
 
@@ -42,19 +41,27 @@ void Monster::PrintMonsterInfo()
 
 int Monster::MyTurn(Actor* Target)
 {
-    Stat.CurrentMp++;
     if (Stat.CurrentMp < SkillMana)
     {
         Attack(Target);
-        return 1;
     }
     else
     {
-        return 2;
+        UseSkill(this, Target);
+        Stat.CurrentMp -= SkillMana;
+
     }
+    Stat.CurrentMp++;
+    return 0;
 }
 
 void Monster::Die(Actor* Attacker)
 {
     printf("[%s] %s 의 공격으로 사망했습니다.\n", Name.c_str(), Attacker->Name.c_str());
+}
+
+bool Monster::UseSkill(Actor* Attacker, Actor* Target)
+{
+    printf("스킬 사용\n");
+    return false;
 }

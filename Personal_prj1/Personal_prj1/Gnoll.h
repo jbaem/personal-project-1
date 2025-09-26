@@ -15,6 +15,8 @@ public:
 	{
 	}
 	virtual ~Gnoll() {}
+	bool UseSkill(Actor* Attacker, Actor* Target);
+
 
 private:
 

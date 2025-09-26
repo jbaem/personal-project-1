@@ -15,6 +15,7 @@ public:
 	{
 	}
 	virtual ~Goblin() {}
+	bool UseSkill(Actor* Attacker, Actor* Target);
 
 private:
 

@@ -14,8 +14,9 @@ public:
 
 	void PrintMonsterInfo();
 	virtual void Die(Actor* Attacker);
+	virtual bool UseSkill(Actor* Attacker, Actor* Target);
 
-	int SkillMana = 100;
+	int SkillMana = 3;
 
 	Monster() = default;
 	Monster(std::string InName, Status& InStat, int InGold)

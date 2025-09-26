@@ -19,6 +19,8 @@ struct Status
 	int CritDmg = 20;
 
 	Status() = default;
+	
+	//HP, MP, EXP / ATK, DEF, SPD / Counter, Dodge, Critical, CritDMG
 	Status(
 		int InHp, int InMp, int InExp,
 		int InAtk, int InDef, int InSpd,

@@ -15,6 +15,5 @@ public:
 	{
 	}
 
-private:
-
+	virtual bool UseSkill(Actor*, Actor*);
 };

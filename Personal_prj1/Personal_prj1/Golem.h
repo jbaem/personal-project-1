@@ -15,6 +15,7 @@ public:
 	{
 	}
 	virtual ~Golem() {}
+	bool UseSkill(Actor* Attacker, Actor* Target);
 
 private:
 
