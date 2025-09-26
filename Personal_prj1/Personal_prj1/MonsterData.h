@@ -15,7 +15,7 @@ enum class MonsterType
 
 static std::map<MonsterType, Status> MonsterStatus = {
 	{MonsterType::Slime, Status(
-		20, 0, 10000,
+		20, 0, 30,
 		5, 6, 20,
 		0, 0, 0, 0
 	)},
