@@ -8,15 +8,12 @@
 class Goblin : public Monster
 {
 public:
+	virtual bool UseSkill(Actor* Target) override;
+
+public:
 	Goblin()
 		:Monster(std::string("Goblin"),
 			MonsterStatus[MonsterType::Goblin],
-			200)
-	{
-	}
+			200) {}
 	virtual ~Goblin() {}
-	bool UseSkill(Actor* Attacker, Actor* Target);
-
-private:
-
 };

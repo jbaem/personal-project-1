@@ -4,11 +4,11 @@
 #include <iostream>
 
 #include "Player.h"
+#include "Constants.h"
 
 void Innkeeper::Talk(Player* InPlayer)
 {
-	const int RecoveryGoldRate = 20;
-	const int NeedGold = RecoveryGoldRate * InPlayer->GetLevel();
+	const int NeedGold = RECOVERY_GOLD_RATE * InPlayer->GetLevel();
 	
 	int InputNumber = 0;
 	while (true)
@@ -22,11 +22,11 @@ void Innkeeper::Talk(Player* InPlayer)
 		switch (InputNumber)
 		{
 		case 1:
-			Heal(InPlayer);
-			printf("[%s] 상쾌해진 기분으로 여관을 나왔습니다.\n", InPlayer->Name.c_str());
+			Heal(InPlayer, NeedGold);
+			printf("[%s] 상쾌해진 기분으로 여관을 나왔습니다.\n", InPlayer->GetName().c_str());
 			return;
 		case 2:
-			printf("[%s] 아직 쉬고 싶지 않습니다.\n", InPlayer->Name.c_str());
+			printf("[%s] 아직 쉬고 싶지 않습니다.\n", InPlayer->GetName().c_str());
 			return;
 		default:
 			break;
@@ -34,17 +34,14 @@ void Innkeeper::Talk(Player* InPlayer)
 	}
 }
 
-void Innkeeper::Heal(Player* InPlayer)
+void Innkeeper::Heal(Player* InPlayer, const int InNeedGold)
 {
-	const int RecoveryGoldRate = 20;
-	const int NeedGold = RecoveryGoldRate * InPlayer->GetLevel();
-
-	if (InPlayer->GetGold() < RecoveryGoldRate * InPlayer->GetLevel())
+	if (InPlayer->GetGold() < InNeedGold)
 	{
 		printf("\n돈이 부족하여 마구간에서 자고자 합니다.\n");
-		printf("여관 주인이 넓은 아량으로 허락해줬습니다.\n\n");
+		printf("[%s] 넓은 아량으로 허락해줬습니다.\n\n", Name.c_str());
 	}
 	
-	InPlayer->LoseGold(NeedGold);
-	InPlayer->Recovery(InPlayer->Stat.Hp);
+	InPlayer->LoseGold(InNeedGold);
+	InPlayer->Recovery(InPlayer->GetStatus().Hp);
 }

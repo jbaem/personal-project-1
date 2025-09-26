@@ -150,7 +150,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
-    <ClInclude Include="ActorInfo.h" />
     <ClInclude Include="Berserker.h" />
     <ClInclude Include="DungeonManager.h" />
     <ClInclude Include="Instructor.h" />

@@ -11,18 +11,19 @@ public:
 	void PlayGame();
 	void InitPlayer();
 
-	GameManager();
-	~GameManager();
-
-public:
+private:
 	int StartChoice();
 	int VillageChoice();
 	
 	Player* User = nullptr;
+	DungeonManager* Dungeon = nullptr;
 
 	Instructor JobNPC;
 	Innkeeper InnNPC;
 
-	DungeonManager* Dungeon = nullptr;
+public:
+	GameManager();
+	~GameManager();
+
 };
 

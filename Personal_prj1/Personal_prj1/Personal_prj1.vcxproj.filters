@@ -201,9 +201,6 @@
     <ClInclude Include="Status.h">
       <Filter>Player\data</Filter>
     </ClInclude>
-    <ClInclude Include="ActorInfo.h">
-      <Filter>Player\data</Filter>
-    </ClInclude>
     <ClInclude Include="Actor.h">
       <Filter>Player\header</Filter>
     </ClInclude>

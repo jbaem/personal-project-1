@@ -10,7 +10,6 @@
 #include "Job.h"
 #include "Novice.h"
 #include "Status.h"
-#include "ActorInfo.h"
 #include "DungeonManager.h"
 
 void GameManager::PlayGame()

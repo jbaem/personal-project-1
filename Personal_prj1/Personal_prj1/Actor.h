@@ -12,7 +12,7 @@ public:
 
 	virtual void Attack(Actor* Target);
 	virtual bool UseSkill(Actor* Target) = 0;
-	virtual int CalculateDamage();
+	virtual int CalculateDamage(float Modifier);
 
 	virtual void Defense(int InDamage, Actor* Attacker);
 	virtual void Damaged(int InDamage, Actor* Attacker);
@@ -20,10 +20,13 @@ public:
 	virtual void Counter(Actor* Target);
 	virtual void Die(Actor* Attacker) = 0;
 
+	bool CheckPlayer() const { return IsPlayer; }
+
 	inline std::string GetName() const { return Name; }
 	inline Status GetStatus() const { return Stat; }
 	inline int GetCurrentHp() const { return Stat.CurrentHp; }
 	inline void SetHp(int InHp) { Stat.CurrentHp = Clamp(InHp, 0, Stat.Hp); }
+	inline int GetGold() const { return Gold; }
 
 protected:
 	std::string Name = "Unknown";

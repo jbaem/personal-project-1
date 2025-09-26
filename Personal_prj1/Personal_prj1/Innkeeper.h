@@ -8,11 +8,15 @@ class Innkeeper : public NPC
 {
 public:
 	virtual void Talk(Player* InPlayer) override;
-	void Heal(Player* InPlayer);
 
+private:
+	void Heal(Player* InPlayer, const int InNeedGold);
+
+	std::string Name = "Innkeeper";
+
+public:
 	Innkeeper() = default;
 	virtual ~Innkeeper() {}
 
-	std::string Name = "Innkeeper";
 };
 

@@ -12,8 +12,7 @@ public:
 	bool FinishStrike(Actor* InPlayer, Actor* Target);
 	bool RageBlade(Actor* InPlayer, Actor* Target);
 
+public:
 	Berserker(JobType InType);
 	virtual ~Berserker() {}
-
-	std::vector<JobType> NextJobs;
 };

@@ -1,9 +1,9 @@
 #pragma once
 
+#include <string>
 #include <map>
 
 #include "Status.h"
-#include <string>
 
 enum class JobType
 {

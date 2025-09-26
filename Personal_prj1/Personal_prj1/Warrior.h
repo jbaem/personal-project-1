@@ -11,6 +11,7 @@ class Warrior : public Novice
 public:
 	bool PowerStrike(Actor* InPlayer, Actor* Target);
 	
+public:
 	Warrior(JobType InType);
 	virtual ~Warrior() {}
 };

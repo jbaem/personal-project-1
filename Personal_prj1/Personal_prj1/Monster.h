@@ -4,20 +4,20 @@
 
 #include "Actor.h"
 #include "Status.h"
-#include "ActorInfo.h"
 
 class Monster : public Actor
 {
 public:
-	ActorInfo Info();
-	virtual int MyTurn(Actor* Target);
+	virtual int MyTurn(Actor* Target) override;
+	virtual bool UseSkill(Actor* Target) override;
+	virtual void Die(Actor* Attacker) override;
 
 	void PrintMonsterInfo();
-	virtual void Die(Actor* Attacker);
-	virtual bool UseSkill(Actor* Attacker, Actor* Target);
 
+protected:
 	int SkillMana = 3;
 
+public:
 	Monster(std::string InName, Status& InStat, int InGold)
 		: Actor(InName, InStat, InGold) {}
 	virtual ~Monster() {}

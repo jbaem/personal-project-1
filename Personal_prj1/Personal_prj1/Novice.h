@@ -11,6 +11,7 @@ class Novice : public Job
 public:
 	bool Strike(Actor* InPlayer, Actor* Target);
 	
+public:
 	Novice(JobType InType);
 	virtual ~Novice() {}
 };

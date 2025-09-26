@@ -4,6 +4,7 @@
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <utility>
 
 #include "Monster.h"
 #include "Slime.h"
@@ -12,10 +13,9 @@
 #include "Orc.h"
 #include "Golem.h"
 #include "Actor.h"
-#include <utility>
-#include "Utilities.h"
-#include "ActorInfo.h"
 #include "Status.h"
+#include "Constants.h"
+#include "Utilities.h"
 
 void DungeonManager::DungeonChoice()
 {
@@ -54,13 +54,11 @@ void DungeonManager::DungeonChoice()
 
 void DungeonManager::GoToDungeon()
 {
-    const int MonsterSpawnRate = 80;
-    const int VillageNumber = 2;
     int InputNumber = 0;
-    while (DungeonInput() != VillageNumber && User->GetCurrentHp() > 0)
+    while (DungeonInput() != VILLAG_NUMBER && User->GetCurrentHp() > 0)
     {
-        int CurrentEvent = GenerateRandomNumber(0, 99);
-        if (CurrentEvent < MonsterSpawnRate)
+        int CurrentEvent = GenerateRandomNumber(PERCENT_MIN, PERCENT_MAX);
+        if (CurrentEvent < MONSTER_SPAWN_RATE)
         {
             printf("몬스터를 만났다!\n");
             Battle();
@@ -70,7 +68,7 @@ void DungeonManager::GoToDungeon()
             printf("몬스터를 만나지 못했다!.\n");
         }
     }
-    if (User->GetCurrentHp() == 0)
+    if (User->GetCurrentHp() == DIE_HP)
     {
         User->SetHp(1);
     }
@@ -78,9 +76,8 @@ void DungeonManager::GoToDungeon()
 
 int DungeonManager::DungeonInput()
 {
-    const int VillageNumber = 2;
     int InputNumber = 0;
-    while (InputNumber != VillageNumber && User->GetCurrentHp() > 0)
+    while (InputNumber != VILLAG_NUMBER && User->GetCurrentHp() > DIE_HP)
     {
         User->PrintPlayerInfo();
         printf("--------------------------------------------------------------------\n");
@@ -114,12 +111,16 @@ void DungeonManager::Battle()
 
     //std::priority_queue<Turn, std::vector<Turn>, std::greater<Turn>> PQ;
     std::priority_queue<Turn, std::vector<Turn>, Comparator> PQ;
-    const float StandardTime = User->Stat.Spd * CurrentMonster->Stat.Spd;
-    PQ.push(std::make_pair(StandardTime / User->Stat.Spd, User ));
-    PQ.push(std::make_pair(StandardTime / CurrentMonster->Stat.Spd, CurrentMonster ));
+    
+    Status PlayerStatus = User->GetStatus();
+    Status MonsterStatus = CurrentMonster->GetStatus();
+    
+    const float StandardTime = PlayerStatus.Spd * MonsterStatus.Spd;
+    PQ.push(std::make_pair(StandardTime / PlayerStatus.Spd, User ));
+    PQ.push(std::make_pair(StandardTime / MonsterStatus.Spd, CurrentMonster ));
 
     int TurnCount = 1;
-    while (CurrentMonster->GetCurrentHp() > 0 && User->GetCurrentHp() > 0)
+    while (CurrentMonster->GetCurrentHp() > DIE_HP && User->GetCurrentHp() > DIE_HP)
     {
         printf("\n###################################################################\n");
         printf("\n\t\t\t<%d 번째 턴>\n\n", TurnCount);
@@ -132,48 +133,49 @@ void DungeonManager::Battle()
         Actor* CurrentActor = PQ.top().second;
         PQ.pop();
 
-        int BattleChoice = 0;
-        if (CurrentActor->IsPlayer)
+        Status CurrentActorStatus = CurrentActor->GetStatus();
+
+        int InputNumber = 0;
+        if (CurrentActor->CheckPlayer())
         {
-            BattleChoice = CurrentActor->MyTurn(CurrentMonster);
+            InputNumber = CurrentActor->MyTurn(CurrentMonster);
         }
         else
         {
-            BattleChoice = CurrentActor->MyTurn(User);
+            InputNumber = CurrentActor->MyTurn(User);
         }
-        if (CurrentActor->Stat.CurrentMp < CurrentActor->Stat.Mp)
+        if (CurrentActorStatus.CurrentMp < CurrentActorStatus.Mp)
         {
-            CurrentActor->Stat.CurrentMp++;
+            CurrentActorStatus.CurrentMp++;
         }
-
         printf("\n");
 
-        if (BattleChoice == 3)
+        if (InputNumber == RUN_NUMBER)
         {
-            printf("[%s] 도망쳤습니다.\n", CurrentActor->Name.c_str());
+            printf("[%s] 도망쳤습니다.\n", CurrentActor->GetName().c_str());
             break;
         }
 
-        float NextTime = CurrentTime + StandardTime / CurrentActor->Stat.Spd;
+        float NextTime = CurrentTime + StandardTime / CurrentActorStatus.Spd;
         PQ.push({ NextTime, CurrentActor });
         
         TurnCount++;
     }
-    User->Stat.CurrentMp = 0;
+    User->InitMp();
 
     PQ = {};
 
-    if (User->GetCurrentHp() <= 0)
+    if (User->GetCurrentHp() <= DIE_HP)
     {
         User->Die(CurrentMonster);
     }
 
-    if (CurrentMonster->GetCurrentHp() <= 0)
+    if (CurrentMonster->GetCurrentHp() <= DIE_HP)
     {
         CurrentMonster->Die(User);
         
-        User->AddExp(CurrentMonster->Stat.Exp);
-        User->EarnGold(CurrentMonster->Gold);
+        User->AddExp(CurrentMonster->GetStatus().Exp);
+        User->EarnGold(CurrentMonster->GetGold());
     }
 
     delete CurrentMonster;

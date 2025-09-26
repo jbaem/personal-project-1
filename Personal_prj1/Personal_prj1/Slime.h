@@ -8,12 +8,12 @@
 class Slime : public Monster
 {
 public:
+	virtual bool UseSkill(Actor* Target) override;
+
+public:
 	Slime()
 		:Monster(std::string("Slime"),
 			MonsterStatus[MonsterType::Slime],
-			100)
-	{
-	}
-
-	virtual bool UseSkill(Actor*, Actor*);
+			100) {}
+	virtual ~Slime() {}
 };

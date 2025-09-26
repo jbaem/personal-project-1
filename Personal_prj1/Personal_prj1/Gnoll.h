@@ -8,16 +8,12 @@
 class Gnoll : public Monster
 {
 public:
+	virtual bool UseSkill(Actor* Target) override;
+
+public:
 	Gnoll()
 		:Monster(std::string("Gnoll"),
 			MonsterStatus[MonsterType::Gnoll],
-			300)
-	{
-	}
+			300) {}
 	virtual ~Gnoll() {}
-	bool UseSkill(Actor* Attacker, Actor* Target);
-
-
-private:
-
 };

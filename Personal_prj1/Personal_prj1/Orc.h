@@ -8,15 +8,12 @@
 class Orc : public Monster
 {
 public:
+	virtual bool UseSkill(Actor* Target) override;
+
+public:
 	Orc()
 		:Monster(std::string("Orc"),
 			MonsterStatus[MonsterType::Orc],
-			400)
-	{
-	}
+			400) {}
 	virtual ~Orc() {}
-	bool UseSkill(Actor* Attacker, Actor* Target);
-
-private:
-
 };

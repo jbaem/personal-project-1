@@ -11,19 +11,20 @@ class DungeonManager
 public:
 	void DungeonChoice();
 
-	DungeonManager(Actor* InPlayer)
-		:User(static_cast<Player*>(InPlayer)) { }
-	~DungeonManager() = default;
-
+private:
 	void GoToDungeon();
 	int DungeonInput();
 	void Battle();
 	Monster* MonsterGenerator();
 
+	Player* User = nullptr;
 	int CurrentDungeon = 0;
 
-private:
-	Player* User = nullptr;
+public:
+	DungeonManager(Actor* InPlayer)
+		:User(static_cast<Player*>(InPlayer)) {
+	}
+	~DungeonManager() = default;
 };
 
 struct Comparator

@@ -1,7 +1,7 @@
 #include "Golem.h"
 
 
-bool Golem::UseSkill(Actor* Attacker, Actor* Target)
+bool Golem::UseSkill(Actor* Target)
 {
 	printf("[%s] Guardian 을 사용했습니다.\n", Name.c_str());
 

@@ -1,15 +1,14 @@
-#include <cstdio>
+#include "Player.h"
 
 #include <iostream>
+#include <cstdio>
+#include <string>
 
-#include "Player.h"
-#include "ActorInfo.h"
 #include "Job.h"
 #include "Actor.h"
-#include "Utilities.h"
-#include <string>
 #include "Status.h"
 #include "Constants.h"
+#include "Utilities.h"
 
 int Player::MyTurn(Actor* Target)
 {
@@ -48,30 +47,29 @@ bool Player::UseSkill(Actor* Target)
 	while (true)
 	{
 		printf("어떤 스킬을 사용할까?\n");
-		int SkillNumber = FIRST_SKILL_NUMBER;
-		while (SkillNumber <= CurrentJob->SkillList.size())
+		int SkillListSize = CurrentJob->SkillList.size();
+		for (int i = 0; i < SkillListSize; ++i)
 		{
-			printf("%d. %s\n", SkillNumber, CurrentJob->SkillList[SkillNumber - FIRST_SKILL_NUMBER].first.c_str());
-			SkillNumber++;
+			printf("%d. %s\n", i + 1, CurrentJob->SkillList[i].first.c_str());
 		}
-		printf("%d. 뒤로\n", SkillNumber);
+		printf("%d. 뒤로\n", SkillListSize + 1);
 		printf(">>> ");
 		std::cin >> InputNumber;
 		printf("\n");
 
-		if (InputNumber > SkillNumber || InputNumber <= 0)
+		if (InputNumber > SkillListSize + 1 || InputNumber < FIRST_NUMBER)
 		{
 			continue;
 		}
 
-		if (InputNumber == SkillNumber)
+		if (InputNumber == SkillListSize + 1)
 		{
 			return false;
 		}
 
 		break;
 	}
-	auto& Skill = CurrentJob->SkillList[InputNumber - FIRST_SKILL_NUMBER].second;
+	auto& Skill = CurrentJob->SkillList[InputNumber - FIRST_NUMBER].second;
 
 	return Skill(this, Target);
 }
@@ -96,14 +94,13 @@ void Player::AddExp(int InExp)
 void Player::LevelUp()
 {
 	Level++;
-	Stat.Hp += CurrentJob->GrowStatus.Hp;
+	Stat.Hp += CurrentJob->GetStatus().Hp;
 	SetHp(Stat.Hp);
-
-	Stat.Exp += CurrentJob->GrowStatus.Exp;
+	Stat.Exp += CurrentJob->GetStatus().Exp;
 	
-	Stat.Atk += CurrentJob->GrowStatus.Atk;
-	Stat.Def += CurrentJob->GrowStatus.Def;
-	Stat.Spd += CurrentJob->GrowStatus.Spd;
+	Stat.Atk += CurrentJob->GetStatus().Atk;
+	Stat.Def += CurrentJob->GetStatus().Def;
+	Stat.Spd += CurrentJob->GetStatus().Spd;
 	if (Level != 1)
 	{
 		printf("[%s] 레벨 업!!!! [%d -> %d]\n\n", Name.c_str(), Level - 1, Level);
@@ -119,26 +116,15 @@ void Player::Recovery(int InRecoveryHp)
 
 void Player::EarnGold(int InGold)
 {
-	printf("[%s] 획득 골드 : %4d\n", Name.c_str(), InGold);
 	Gold += InGold;
+	printf("[%s] 획득 골드 : %4d\n", Name.c_str(), InGold);
 }
 
 void Player::LoseGold(int LostGold)
 {
 	int BeforeGold = Gold;
 	Gold = Clamp(Gold - LostGold, 0, Gold);
-	printf("[%s] %d 만큼 소모했습니다.\n", Name.c_str(), Gold - BeforeGold);
-}
-
-ActorInfo Player::Info()
-{
-	return {
-		Name,
-		CurrentJob->Name,
-		Level,
-		Gold,
-		Stat
-	};
+	printf("[%s] %d 만큼 소모했습니다.\n", Name.c_str(), BeforeGold - Gold);
 }
 
 void Player::PrintPlayerInfo()
@@ -147,7 +133,7 @@ void Player::PrintPlayerInfo()
 	printf("--------------------------------------------------------------------\n");
 	printf("|\t\t\t<캐릭터 상태창>\t\t\t\t |\n");
 	printf("--------------------------------------------------------------------\n");
-	printf("| 이름 : %22s | 직업 : %11s | 레벨 : %2d |\n", Name.c_str(), CurrentJob->Name.c_str(), Level);
+	printf("| 이름 : %22s | 직업 : %11s | 레벨 : %2d |\n", Name.c_str(), CurrentJob->GetName().c_str(), Level);
 	printf("| 체력 : %3d/%3d | 마나 : %2d/%2d | 경험치 : %4d/%4d |\n",
 		Stat.CurrentHp, Stat.Hp,
 		Stat.CurrentMp, Stat.Mp,
@@ -158,7 +144,6 @@ void Player::PrintPlayerInfo()
 	printf("| 스피드  :  %3d | 회피 확률  :  %3d%% |	골드 보유량 : %8dG  |\n", Stat.Spd, Stat.Dodge, Gold);
 	printf("--------------------------------------------------------------------\n");
 }
-
 
 Player::Player(std::string InName, Status InStat, Job* InJob)
 	:Actor(InName, InStat, 0), CurrentJob(InJob)

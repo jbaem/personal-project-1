@@ -11,6 +11,7 @@
 #include "Warrior.h"
 #include "Knight.h"
 #include "Berserker.h"
+#include "Constants.h"
 
 
 void Instructor::Talk(Player* InPlayer)
@@ -30,7 +31,7 @@ void Instructor::Talk(Player* InPlayer)
 			ClassUp(InPlayer);
 			return;
 		case 2:
-			printf("[%s] 아직 전직하고 싶지 않습니다.\n", InPlayer->Name.c_str());
+			printf("[%s] 아직 전직하고 싶지 않습니다.\n", InPlayer->GetName().c_str());
 			return;
 		default:
 			break;
@@ -42,15 +43,15 @@ void Instructor::ClassUp(Player* InPlayer)
 {
 	Job* PlayerJob = InPlayer->GetJob();
 	
-	if (PlayerJob->Degree >= 3)
+	if (PlayerJob->GetDegree() >= MAX_JOB_DEGREE)
 	{
 		printf("[%s] 충분히 강해서 더 가르칠 것이 없네.\n", Name.c_str());
 		return;
 	}
 
-	if (InPlayer->GetLevel() < PlayerJob->NeedLevelToNextDegree)
+	if (InPlayer->GetLevel() < PlayerJob->GetNeedLevel())
 	{
-		printf("[%s] 넌 아직 전직할 수 없어. %d 레벨까지 성장하고 다시 와\n", Name.c_str(), PlayerJob->NeedLevelToNextDegree);
+		printf("[%s] 넌 아직 전직할 수 없어. %d 레벨까지 성장하고 다시 와\n", Name.c_str(), PlayerJob->GetNeedLevel());
 		return;
 	}
 
@@ -59,38 +60,37 @@ void Instructor::ClassUp(Player* InPlayer)
 	{
 		printf("[%s] 무엇으로 전직하고 싶니?\n", Name.c_str());
 
-		int JobCount = 1;
-		for (auto Type : PlayerJob->NextJobs)
+		int NextJobsSize = PlayerJob->NextJobs.size();
+		for (int i = 0; i < NextJobsSize; ++i)
 		{
-			printf("%d. %s\n", JobCount, JobName[Type].c_str());
-			JobCount++;
+			JobType Temp = PlayerJob->NextJobs[i];
+			printf("%d. %s\n", i + 1, JobName[Temp].c_str());
 		}
-		printf("%d. 돌아가기\n", JobCount);
+		printf("%d. 돌아가기\n", NextJobsSize);
 		printf(">>> ");
 		std::cin >> InputNumber;
 
-
-		if (InputNumber > JobCount || InputNumber <= 0)
+		if (InputNumber > NextJobsSize + 1 || InputNumber < FIRST_NUMBER)
 		{
 			continue;
 		}
-		if (InputNumber == JobCount)
+		if (InputNumber == NextJobsSize + 1)
 		{
-			printf("[%s] 아직 전직하고 싶지 않습니다.\n", InPlayer->Name.c_str());
+			printf("[%s] 아직 전직하고 싶지 않습니다.\n", InPlayer->GetName().c_str());
 			return;
 		}
-		
-		JobType NextJobType = PlayerJob->NextJobs[InputNumber - 1];
-		delete InPlayer->CurrentJob;
 
-		InPlayer->CurrentJob = MatchJob(NextJobType);
-		if (!InPlayer->CurrentJob)
+		JobType NextJobType = PlayerJob->NextJobs[InputNumber - 1];
+		delete InPlayer->GetJob();
+
+		InPlayer->SetJob(MatchJob(NextJobType));
+		if (!InPlayer->GetJob())
 		{
 			printf("전직 실패!!!\n");
 			return;
 		}
-		printf("[%s] %s 으로 전직했습니다.\n", InPlayer->Name.c_str(), JobName[NextJobType].c_str());
-		printf("[%s] 한층 강해진 기분이 듭니다.\n", InPlayer->Name.c_str());
+		printf("[%s] %s 으로 전직했습니다.\n", InPlayer->GetName().c_str(), JobName[NextJobType].c_str());
+		printf("[%s] 한층 강해진 기분이 듭니다.\n", InPlayer->GetName().c_str());
 		return;
 	}
 }

@@ -5,7 +5,6 @@
 #include "Actor.h"
 #include "Job.h"
 #include "Status.h"
-#include "ActorInfo.h"
 
 class Player : public Actor
 {
@@ -15,19 +14,20 @@ public:
 	virtual bool UseSkill(Actor* Target) override;
 	virtual void Die(Actor* Attacker) override;
 	
+	void InitMp() { Stat.CurrentMp = 0; }
 	void AddExp(int InExp);
 	void LevelUp();
 	void Recovery(int InRecoveryHp);
 	void EarnGold(int InGold);
 	void LoseGold(int LostGold);
-	
-	Job* GetJob() const { return CurrentJob; }
-	int GetLevel() const { return Level; }
-	int GetGold() const { return Gold; }
-	int GetExp() const { return Stat.CurrentExp; }
 
-	ActorInfo Info();
+	inline Job* GetJob() const { return CurrentJob; }
+	inline void SetJob(Job* InJob) { CurrentJob = InJob; }
+	inline int GetLevel() const { return Level; }
+	inline int GetExp() const { return Stat.CurrentExp; }
+
 	void PrintPlayerInfo();
+
 
 private:
 	int Level = 0;
