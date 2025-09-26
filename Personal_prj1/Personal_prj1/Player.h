@@ -24,7 +24,7 @@ public:
 	int GetExp() const { return CurrentExp; }
 	void EarnGold(int InGold);
 	virtual void Die(Actor* Attacker);
-	void UseSkill(Actor* Target);
+	bool UseSkill(Actor* Target);
 
 	Player() = default;
 	Player(std::string InName, Status InStat, Job* InJob)

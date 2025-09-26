@@ -6,8 +6,8 @@
 #include <vector>
 #include <functional>
 #include <utility>
-#include "Monster.h"
-#include "Player.h"
+
+#include "Actor.h"
 
 class Job
 {
@@ -28,5 +28,5 @@ public:
 	int Degree = 0;
 
 	std::vector<JobType> NextJobs;
-	std::vector<std::pair<std::string, std::function<bool(Player*, Monster*)>>> SkillList;
+	std::vector<std::pair<std::string, std::function<bool(Actor*, Actor*)>>> SkillList;
 };

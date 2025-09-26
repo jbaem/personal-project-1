@@ -1,15 +1,20 @@
 #include "Warrior.h"
+
+#include <cstdio>
+
 #include "Novice.h"
 #include "JobData.h"
 #include "Utilities.h"
+#include "Actor.h"
 
 
 
-bool Warrior::PowerStrike(Player* InPlayer, Monster* Target)
+bool Warrior::PowerStrike(Actor* InPlayer, Actor* Target)
 {
 	const int NeedMp = 2;
 	if (InPlayer->Stat.CurrentMp < NeedMp)
 	{
+		printf("[%s] 마나가 부족하여 스킬 사용 불가 (필요마나 : %d)\n", InPlayer->Name.c_str(), NeedMp);
 		return false;
 	}
 	InPlayer->Stat.CurrentMp -= NeedMp;
@@ -20,7 +25,7 @@ bool Warrior::PowerStrike(Player* InPlayer, Monster* Target)
 	{
 		Damage = Damage * (100 + InPlayer->Stat.CritDmg) / 100;
 	}
-	printf("[%s] %d 데미지로 %s 공격 시도!\n", Name.c_str(), Damage, "Strike");
+	printf("[%s] %d 데미지로 %s 공격 시도!\n", Name.c_str(), Damage, "Power Strike");
 	Target->Suffer(Damage, InPlayer);
 
 	return true;
@@ -31,7 +36,7 @@ Warrior::Warrior(JobType InType)
 	: Novice(InType)
 {
 	Degree++;
-	NeedLevelToNextDegree = 10;
+	NeedLevelToNextDegree = 20;
 
 	NextJobs = {
 		JobType::Knight,
@@ -39,10 +44,10 @@ Warrior::Warrior(JobType InType)
 	};
 
 	SkillList.push_back(
-		{ "PowerStrike",
-			[this](Player* InPlayer, Monster* Target) -> bool
+		{ "Power Strike",
+			[this](Actor* InPlayer, Actor* Target) -> bool
 			{
-				this->PowerStrike(InPlayer, Target);
+				return this->PowerStrike(InPlayer, Target);
 			}
 		});
 }

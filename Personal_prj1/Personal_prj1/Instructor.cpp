@@ -41,6 +41,13 @@ void Instructor::Talk(Player* InPlayer)
 void Instructor::ClassUp(Player* InPlayer)
 {
 	Job* PlayerJob = InPlayer->GetJob();
+	
+	if (PlayerJob->Degree >= 3)
+	{
+		printf("[%s] 충분히 강해서 더 가르칠 것이 없네.\n", Name.c_str());
+		return;
+	}
+
 	if (InPlayer->GetLevel() < PlayerJob->NeedLevelToNextDegree)
 	{
 		printf("[%s] 넌 아직 전직할 수 없어. %d 레벨까지 성장하고 다시 와\n", Name.c_str(), PlayerJob->NeedLevelToNextDegree);
@@ -51,7 +58,7 @@ void Instructor::ClassUp(Player* InPlayer)
 	while (true)
 	{
 		printf("[%s] 무엇으로 전직하고 싶니?\n", Name.c_str());
-		
+
 		int JobCount = 1;
 		for (auto Type : PlayerJob->NextJobs)
 		{
@@ -59,7 +66,10 @@ void Instructor::ClassUp(Player* InPlayer)
 			JobCount++;
 		}
 		printf("%d. 돌아가기\n", JobCount);
-		
+		printf(">>> ");
+		std::cin >> InputNumber;
+
+
 		if (InputNumber > JobCount || InputNumber <= 0)
 		{
 			continue;
@@ -70,16 +80,18 @@ void Instructor::ClassUp(Player* InPlayer)
 			return;
 		}
 		
+		JobType NextJobType = PlayerJob->NextJobs[InputNumber - 1];
 		delete InPlayer->CurrentJob;
 
-		JobType NextJobType = PlayerJob->NextJobs[InputNumber];
 		InPlayer->CurrentJob = MatchJob(NextJobType);
 		if (!InPlayer->CurrentJob)
 		{
 			printf("전직 실패!!!\n");
+			return;
 		}
 		printf("[%s] %s 으로 전직했습니다.\n", InPlayer->Name.c_str(), JobName[NextJobType].c_str());
 		printf("[%s] 한층 강해진 기분이 듭니다.\n", InPlayer->Name.c_str());
+		return;
 	}
 }
 
@@ -97,10 +109,10 @@ Job* Instructor::MatchJob(JobType InType)
 		Result = new Warrior(JobType::Warrior);
 		break;
 	case JobType::Knight:
-		//Result = new Knight(JobType::Knight);
+		Result = new Knight(JobType::Knight);
 		break;
 	case JobType::Berserker:
-		//Result = new Berserker(JobType::Berserker);
+		Result = new Berserker(JobType::Berserker);
 		break;
 	default:
 		break;

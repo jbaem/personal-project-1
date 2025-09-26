@@ -30,6 +30,7 @@ void DungeonManager::DungeonChoice()
         printf("3.    놀   던전 (Lv.10)\n");
         printf("4.   오크  던전 (Lv.15)\n");
         printf("5.   골렘  던전 (Lv.20)\n");
+        printf("6.  마을로 돌아가기     \n");
         printf("\n>>> ");
 
         std::cin >> InputNumber;
@@ -42,6 +43,8 @@ void DungeonManager::DungeonChoice()
         case 5:
             CurrentDungeon = InputNumber;
             GoToDungeon();
+            return;
+        case 6:
             return;
         default:
             break;
@@ -67,13 +70,17 @@ void DungeonManager::GoToDungeon()
             printf("몬스터를 만나지 못했다!.\n");
         }
     }
+    if (User->GetCurrentHp() == 0)
+    {
+        User->SetHp(1);
+    }
 }
 
 int DungeonManager::DungeonInput()
 {
     const int VillageNumber = 2;
     int InputNumber = 0;
-    while (InputNumber != VillageNumber)
+    while (InputNumber != VillageNumber && User->GetCurrentHp() > 0)
     {
         User->PrintPlayerInfo();
         printf("--------------------------------------------------------------------\n");
@@ -113,9 +120,12 @@ void DungeonManager::Battle()
     int TurnCount = 1;
     while (CurrentMonster->GetCurrentHp() > 0 && User->GetCurrentHp() > 0)
     {
+        printf("\n###################################################################\n");
+        printf("\n\t\t\t<%d 번째 턴>\n\n", TurnCount);
+
         User->PrintPlayerInfo();
         CurrentMonster->PrintMonsterInfo();
-        printf("\n\t\t\t<%d 번째 턴>\n\n", TurnCount);
+        printf("\n");
 
         float CurrentTime = PQ.top().first;
         Actor* CurrentActor = PQ.top().second;
@@ -130,6 +140,11 @@ void DungeonManager::Battle()
         {
             BattleChoice = CurrentActor->MyTurn(User);
         }
+        if (CurrentActor->Stat.CurrentMp < CurrentActor->Stat.Mp)
+        {
+            CurrentActor->Stat.CurrentMp++;
+        }
+
         printf("\n");
 
         if (BattleChoice == 3)
@@ -143,6 +158,8 @@ void DungeonManager::Battle()
         
         TurnCount++;
     }
+    User->Stat.CurrentMp = 0;
+
     PQ = {};
 
     if (User->GetCurrentHp() <= 0)

@@ -4,19 +4,13 @@
 #include <vector>
 
 #include "JobData.h"
-#include "Monster.h"
-#include "Player.h"
-#include <string>
-#include "Status.h"
+#include "Actor.h"
 
 class Novice : public Job
 {
 public:
-	bool Strike(Player* InPlayer, Monster* Target);
+	bool Strike(Actor* InPlayer, Actor* Target);
 	
 	Novice(JobType InType);
 	virtual ~Novice() {}
-
-private:
-	std::vector<JobType> NextJobs;
 };

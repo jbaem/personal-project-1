@@ -15,7 +15,7 @@ public:
 	void PrintMonsterInfo();
 	virtual void Die(Actor* Attacker);
 
-	int SkillMana = 100; //TODO: CHange
+	int SkillMana = 100;
 
 	Monster() = default;
 	Monster(std::string InName, Status& InStat, int InGold)

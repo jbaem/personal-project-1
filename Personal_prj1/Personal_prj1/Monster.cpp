@@ -5,6 +5,7 @@
 #include "Status.h"
 #include "Actor.h"
 #include "ActorInfo.h"
+#include <cstdio>
 
 //float RandomFactor = 0.9f + ((static_cast<float>(rand()) / static_cast<float>(RAND_MAX)) * 0.2f);
 
@@ -24,6 +25,7 @@ void Monster::PrintMonsterInfo()
     ActorInfo OutInfo = Info();
     Status OutStat = OutInfo.Stat;
 
+    printf("\n");
     printf("--------------------------------------------------------------------\n");
     printf("|\t\t\t<몬스터 상태창>\t\t\t\t |\n");
     printf("--------------------------------------------------------------------\n");

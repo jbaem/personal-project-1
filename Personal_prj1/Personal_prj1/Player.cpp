@@ -9,6 +9,7 @@
 #include "Utilities.h"
 #include "JobData.h"
 #include <string>
+#include "Status.h"
 
 ActorInfo Player::Info()
 {
@@ -25,6 +26,7 @@ void Player::PrintPlayerInfo()
 	ActorInfo OutInfo = Info();
 	Status OutStat = OutInfo.Stat;
 
+	printf("\n");
 	printf("--------------------------------------------------------------------\n");
 	printf("|\t\t\t<캐릭터 상태창>\t\t\t\t |\n");
 	printf("--------------------------------------------------------------------\n");
@@ -42,7 +44,6 @@ void Player::PrintPlayerInfo()
 
 int Player::MyTurn(Actor* Target)
 {
-	Stat.CurrentMp++;
 	int InputNumber = 0;
 	while (true)
 	{
@@ -59,8 +60,10 @@ int Player::MyTurn(Actor* Target)
 			Attack(Target);
 			return InputNumber;
 		case 2:
-			//TODO: 스킬 구현
-			UseSkill(Target);
+			if (!UseSkill(Target))
+			{
+				continue;
+			}
 			return InputNumber;
 		case 3:
 			return InputNumber;
@@ -74,7 +77,7 @@ void Player::AddExp(int InExp)
 {
 	printf("[%s] 획득 경험치 : %4d\n", Name.c_str(), InExp);
 	CurrentExp += InExp;
-	if (CurrentExp >= Stat.Exp)
+	while (CurrentExp >= Stat.Exp)
 	{
 		CurrentExp -= Stat.Exp;
 		LevelUp();
@@ -122,31 +125,40 @@ void Player::Die(Actor* Attacker)
 {
 	printf("[%s] %s 의 공격으로 사망했습니다.\n", Name.c_str(), Attacker->Name.c_str());
 	printf("마을로 이동합니다.\n");
-	SetHp(1);
 }
 
-void Player::UseSkill(Actor* Target)
+bool Player::UseSkill(Actor* Target)
 {
+
+	int InputNumber = 0;
+
 	while (true)
 	{
-		int InputNumber = 0;
-		
 		printf("어떤 스킬을 사용할까?\n");
-		int SkillNumber = 0;
-		while (SkillNumber < CurrentJob->SkillList.size())
+		int SkillNumber = 1;
+		while (SkillNumber <= CurrentJob->SkillList.size())
 		{
-			printf("%d. %s\n", SkillNumber + 1, CurrentJob->SkillList[SkillNumber].first.c_str());
+			printf("%d. %s\n", SkillNumber, CurrentJob->SkillList[SkillNumber - 1].first.c_str());
 			SkillNumber++;
 		}
 		printf("%d. 뒤로\n", SkillNumber);
+		printf(">>> ");
 		std::cin >> InputNumber;
+		printf("\n");
 
-		if (InputNumber >= SkillNumber || InputNumber <= 0)
+		if (InputNumber > SkillNumber || InputNumber <= 0)
 		{
 			continue;
 		}
 
-		//TODO: Last Code 
-		bool IsUsed = CurrentJob->SkillList[InputNumber - 1].second(*this, Target);
+		if (InputNumber == SkillNumber)
+		{
+			return false;
+		}
+
+		break;
 	}
+	auto& Skill = CurrentJob->SkillList[InputNumber - 1].second;
+
+	return Skill(this, Target);
 }
