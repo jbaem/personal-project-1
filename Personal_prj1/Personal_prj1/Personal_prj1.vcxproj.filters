@@ -195,9 +195,6 @@
     <ClInclude Include="NPC.h">
       <Filter>NPC\data</Filter>
     </ClInclude>
-    <ClInclude Include="Innkeeper.h">
-      <Filter>NPC\header</Filter>
-    </ClInclude>
     <ClInclude Include="Instructor.h">
       <Filter>NPC\header</Filter>
     </ClInclude>
@@ -218,6 +215,9 @@
     </ClInclude>
     <ClInclude Include="Utilities.h">
       <Filter>Util\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Innkeeper.h">
+      <Filter>NPC\header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

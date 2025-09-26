@@ -6,7 +6,7 @@ struct Status
 	int Hp = 50;
 	int CurrentMp = 0;
 	int Mp = 7;
-
+	int CurrentExp = 0;
 	int Exp = 0;
 
 	int Atk = 10;
@@ -18,14 +18,15 @@ struct Status
 	int Crit = 10;
 	int CritDmg = 20;
 
-	Status() = default;
-	
 	//HP, MP, EXP / ATK, DEF, SPD / Counter, Dodge, Critical, CritDMG
 	Status(
 		int InHp, int InMp, int InExp,
 		int InAtk, int InDef, int InSpd,
 		int InCounter, int InDodge, int InCrit, int InCrtiDmg)
-		: CurrentHp(InHp), Hp(InHp), CurrentMp(InMp), Mp(7), Exp(InExp),
+		:
+		CurrentHp(InHp), Hp(InHp),
+		CurrentMp(InMp), Mp(7),
+		CurrentExp(0), Exp(InExp),
 		Atk(InAtk), Def(InDef), Spd(InSpd),
 		Counter(InCounter), Dodge(InDodge), Crit(InCrit), CritDmg(InCrtiDmg) {}
 };

@@ -11,7 +11,6 @@ class DungeonManager
 public:
 	void DungeonChoice();
 
-	DungeonManager() = default;
 	DungeonManager(Actor* InPlayer)
 		:User(static_cast<Player*>(InPlayer)) { }
 	~DungeonManager() = default;

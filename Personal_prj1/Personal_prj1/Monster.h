@@ -18,7 +18,6 @@ public:
 
 	int SkillMana = 3;
 
-	Monster() = default;
 	Monster(std::string InName, Status& InStat, int InGold)
 		: Actor(InName, InStat, InGold) {}
 	virtual ~Monster() {}

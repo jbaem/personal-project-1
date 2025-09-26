@@ -3,23 +3,36 @@
 #include <string>
 
 #include "Status.h"
+#include "Utilities.h"
 
 class Actor
 {
 public:
+	virtual int MyTurn(Actor* Target) = 0;
+
+	virtual void Attack(Actor* Target);
+	virtual bool UseSkill(Actor* Target) = 0;
+	virtual int CalculateDamage();
+
+	virtual void Defense(int InDamage, Actor* Attacker);
+	virtual void Damaged(int InDamage, Actor* Attacker);
+	virtual void Dodge();
+	virtual void Counter(Actor* Target);
+	virtual void Die(Actor* Attacker) = 0;
+
+	inline std::string GetName() const { return Name; }
+	inline Status GetStatus() const { return Stat; }
+	inline int GetCurrentHp() const { return Stat.CurrentHp; }
+	inline void SetHp(int InHp) { Stat.CurrentHp = Clamp(InHp, 0, Stat.Hp); }
+
+protected:
 	std::string Name = "Unknown";
 	Status Stat;
 	bool IsPlayer = false;
 	int Gold = 0;
 
-	virtual void Attack(Actor* Target);
-	virtual void Suffer(int InDamage, Actor* Target);
-	virtual void Die(Actor* Attacker) = 0;
-	virtual int MyTurn(Actor* Target);
-
-	void SetHp(int InHp);
-	int GetCurrentHp() const { return Stat.CurrentHp; }
-
-	Actor(std::string InName, Status& InStat, int InGold);
+public:
+	Actor(std::string InName, Status& InStat, int InGold)
+		:Name(InName), Stat(InStat), Gold(InGold) {};
 	virtual ~Actor() {};
 };
