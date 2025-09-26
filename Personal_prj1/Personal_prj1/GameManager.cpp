@@ -38,11 +38,6 @@ void GameManager::PlayGame()
 			default:
 				break;
 			}
-
-			if (ChoiceNumber == 4)
-			{
-				break;
-			}
 		}
 	}
 }
@@ -86,7 +81,6 @@ int GameManager::VillageChoice()
 		printf("1. 던전으로 향하기\n");
 		printf("2. 교관에게 전직하러 가기\n");
 		printf("3. 여관에 쉬러 가기\n");
-		printf("4. 메인 화면으로\n");
 		printf("\n>>> ");
 
 		std::cin >> InputNumber;
@@ -95,7 +89,6 @@ int GameManager::VillageChoice()
 		case 1:
 		case 2:
 		case 3:
-		case 4:
 			return InputNumber;
 		default:
 			break;
